@@ -22,9 +22,9 @@ disk_load:
 
     jc disk_read_err ; jc = jump carry, jump if carry flag is set (read error)
 
-    pop dx ; restore dx to contain # sectors read
-    cmp al, dh ; AL is set to # of sectors read after calling disk read
-    ; BIOS interrupt. So, check if # sectors read matches what we expect
+    pop dx      ; restore dx to contain # sectors read
+    cmp al, dh  ; AL is set to # of sectors read after calling disk read
+                ; So, check if # sectors read matches what we expect
     
     jne disk_read_incomplete
     
