@@ -5,11 +5,6 @@ disk_load:
     ; push value of DX onto stack to use for comparison later (compare DH)
     ; and since we are in 16 bit mode, we can only push DX and not DH
 
-    ; mov ah, 0x0e
-    ; mov al, dl
-    ; add al, '0'
-    ; int 0x10
-
     mov ah, 0x02 ; BIOS interrupt for reading 
 
     mov al, dh ; set number of sectors to read
