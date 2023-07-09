@@ -1,37 +1,41 @@
 ;
-; Simple boot sector program that includes a print function
+; Simple boot sector program that enters 32 bit protected mode
 ;
+
 [bits 16]
 [org 0x7c00]    ; Set offset for where the boot program is loaded into memory
 
-mov [BOOT_DRIVE], dl    ; BIOS stores our boot drive in DL on startup
-                        ; so we'll need to remember this for later
-mov dh, 2   ; DH stores the # of sectors we want to read/load into memory
-            ; For now, let's read 2 sectors of the disk (each sector is 512B)
-mov dl, [BOOT_DRIVE] ; select which drive to load (0 indexed)
+    xor ax, ax
+    mov ds, ax
 
-mov bp, 0x8000 ; Set stack safely out of the way at 0x8000
-mov sp, bp
+    mov bp, 0x9000  ; Set the stack
+    mov sp, bp
 
-mov bx, 0x0000  ; Indirectly set address to read sectors to
-mov es, bx      ; by setting the starting segment
-mov bx, 0x9000  ; Now, set the segment offset. 
-                ; CPU translates this to 0x0000:0x9000 = 0x9000
-call disk_load
-call print_hex  ; Print hex value at mem addr of bx, where we read sectors to
+    mov bx, MSG_REAL_MODE
+    call print_string
 
-jmp $
+    call switch_pm  ; Note: we never return from here
 
 ; IMPORTS
 %include "print_hex.asm"
 %include "print.asm"
-%include "disk_load.asm"
+; %include "disk_load.asm"
+%include "GDT.asm"
+%include "switch_PM.asm"
 
-; CONSTANTS
-BOOT_DRIVE:
-    db 0
-my_str:
-    db "test", 0
+[bits 32]
+; Arrive here after switching to and initating 32 bit PM
+begin_pm:
+    mov ebx, MSG_PM_MODE
+    call print_string_pm
+    jmp $
+
+[bits 16]
+; Global Variables
+MSG_REAL_MODE:
+    db "Entering 32 bit protected mode...", 0
+MSG_PM_MODE:
+    db "RUNNING IN 32 BIT PROTECTED MODE", 0
 
 ; Padding and magic number
 times 510 - ($ - $$) db 0
