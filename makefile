@@ -15,12 +15,12 @@ all: os-image
 
 # Run Qemu to simulate and test resulting code
 run: os-image
-	qemu-system-x86_64 os-image 
+	qemu-system-x86_64 -drive format=raw,file=os-image
 
 clean:
 	rm -rf *.bin *.o os-image
 	rm -rf ${OBJ_FILES}
-
+	
 os-image: boot.bin kernel.bin
 	cat boot.bin kernel.bin > os-image
 
@@ -28,11 +28,16 @@ os-image: boot.bin kernel.bin
 boot.bin:
 	nasm ${NASMFLAGS} boot/boot.asm -o boot.bin
 
-# Assemble C kernel binary
-kernel.bin: ${OBJ_FILES}
-	ld ${LDFLAGS} ${OBJ_FILES} -o kernel.bin
+# Assemble C kernel binary 
+# Note: $^ is all dependencies, $< is first dependency, $@ is target file
+kernel.bin: kernel/kernel_entry.o ${OBJ_FILES}
+	ld ${LDFLAGS} $^ -o kernel.bin
 
 # Generic rule to compile C code into object files
 # For simplicity, C files depend on all header files
 %.o: %.c ${C_HEADERS}
 	gcc ${CFLAGS} $< -o $@
+
+# Compile our simple kernel entry asm file into an object file
+kernel/kernel_entry.o: kernel/kernel_entry.asm
+	nasm -f elf32 kernel/kernel_entry.asm -o kernel/kernel_entry.o
