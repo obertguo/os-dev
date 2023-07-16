@@ -4,9 +4,9 @@ NASMFLAGS= -f bin -I ./boot
 LDFLAGS= -m elf_i386 -Ttext 0x1000 --oformat binary
 
 # Auto generate lists of sources
-C_FILES=$(wildcard kernel/*.c drivers/*.c )
+C_FILES=$(wildcard kernel/*.c drivers/*.c)
 C_HEADERS=$(wildcard kernel/*.h drivers/*.h)
-OBJ_FILES=${C_FILES:.c=.o}
+OBJ_FILES=${wildcard kernel/*.o drivers/*.o}
 
 # TODO: Make sources depend on all header files
 
@@ -20,7 +20,7 @@ run: os-image
 clean:
 	rm -rf *.bin *.o os-image
 	rm -rf ${OBJ_FILES}
-	
+
 os-image: boot.bin kernel.bin
 	cat boot.bin kernel.bin > os-image
 
