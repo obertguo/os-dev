@@ -10,8 +10,6 @@ The entry point for the bootloader is `boot.asm` and the entry point for the ker
 
 To compile the project in Linux, use `make`. The resulting raw os image is found in the project directory named `os-image`. 
 
-To run the program using Qemu, use `make run`. 
-
 To clean the project, removing all intermediate object and raw binary files, as well as the final os image, use `make clean`. 
 
 To run the OS in Qemu, use `qemu-system-x86_64.exe image` or `make run`.
