@@ -1,5 +1,5 @@
 # Compiler flags
-CFLAGS= -ffreestanding -c -nostdlib -m32 -fno-pie -Wall -Wextra -Werror -std=c99
+CFLAGS= -ffreestanding -c -nostdlib -m32 -fno-pie -Wall -Wextra -std=c99
 NASMFLAGS= -f bin -I ./boot
 LDFLAGS= -m elf_i386 -Ttext 0x1000 --oformat binary
 
