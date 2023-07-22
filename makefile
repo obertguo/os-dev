@@ -20,7 +20,7 @@ run: os-image
 clean:
 	rm -rf *.bin *.o os-image
 	rm -rf kernel/*.o
-	rm -rf driver/*.o
+	rm -rf drivers/*.o
 
 os-image: boot.bin kernel.bin
 	cat boot.bin kernel.bin > os-image
