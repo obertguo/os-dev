@@ -6,7 +6,7 @@ LDFLAGS= -m elf_i386 -Ttext 0x1000 --oformat binary
 # Auto generate lists of sources
 C_FILES=$(wildcard kernel/*.c drivers/*.c)
 C_HEADERS=$(wildcard kernel/*.h drivers/*.h)
-OBJ_FILES=${wildcard kernel/*.o drivers/*.o}
+OBJ_FILES=$(C_FILES:.c=.o) # This is needed for the implicit %.o: %.c rule later
 
 # TODO: Make sources depend on all header files
 
@@ -19,7 +19,8 @@ run: os-image
 
 clean:
 	rm -rf *.bin *.o os-image
-	rm -rf ${OBJ_FILES}
+	rm -rf kernel/*.o
+	rm -rf driver/*.o
 
 os-image: boot.bin kernel.bin
 	cat boot.bin kernel.bin > os-image
@@ -30,12 +31,12 @@ boot.bin:
 
 # Assemble C kernel binary 
 # Note: $^ is all dependencies, $< is first dependency, $@ is target file
-kernel.bin: kernel/kernel_entry.o ${OBJ_FILES}
+kernel.bin: kernel/kernel_entry.o ${OBJ_FILES} 
 	ld ${LDFLAGS} $^ -o kernel.bin
 
 # Generic rule to compile C code into object files
 # For simplicity, C files depend on all header files
-%.o: %.c ${C_HEADERS}
+%.o: %.c
 	gcc ${CFLAGS} $< -o $@
 
 # Compile our simple kernel entry asm file into an object file
