@@ -4,13 +4,6 @@
 #define BROWN_ON_WHITE 0x6f
 #define YELLOW_ON_WHITE 0xef
 
-
-void print_line(int rep, char attr) {
-	for (int i = 0; i < rep; ++i) {
-		print_char(' ', attr);
-	}
-}
-
 void print_mario() {
     clear();
 

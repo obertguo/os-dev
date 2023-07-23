@@ -1,5 +1,6 @@
 #include "screen.h"
 #include "../kernel/kernel_low_level.h"
+#include "../kernel/util.h"
 
 // get_screen_offset(row, col) maps the row and col coordinates and
 //      returns the memory offset for that character cell relative
@@ -51,6 +52,54 @@ void set_cursor(unsigned int offset) {
     port_byte_out(REG_SCREEN_DATA, (unsigned char) (offset));
 }
 
+// print_line(count, attribute_byte) prints a space/blank character count 
+//      number of times at the current cursor position. It is styles
+//      with the given attribute_byte
+// Requires: count >= 0 and attribute_byte is a valid styling
+void print_line(unsigned int count, unsigned char attribute_byte) {
+	for (unsigned int i = 0; i < count; ++i) {
+		print_char(' ', attribute_byte);
+	}
+}
+
+// handle_scrolling() scrolls the VGA buffer to the next line
+void handle_scrolling() {
+    // to handle scrolling, we can copy over the next row to the current row
+    unsigned int current_row = 0;
+    unsigned int next_row = 1;
+
+    unsigned char *current_row_addr = 0;
+    unsigned char *next_row_addr = 0;
+
+    for (int i = 0; i < MAX_ROWS - 1; ++i) {
+        current_row_addr = (unsigned char *) 
+                            (VIDEO_ADDRESS + get_screen_offset(current_row, 0));
+        next_row_addr = (unsigned char *) 
+                            (VIDEO_ADDRESS + get_screen_offset(next_row, 0));
+
+        memory_copy(current_row_addr, next_row_addr, MAX_COLS * 2);
+
+        ++current_row;
+        ++next_row;
+    }
+
+    // reset/clear the last line by writing 
+    //      0s to the last line in VGA buffer
+    // Note that if we used the print_line function function, which uses
+    //      the print_char function, we get into a bad recursive loop...
+    //      So we avoid it by intervening and 
+    //      clearing without using a helper function.
+    unsigned char *video_mem = (unsigned char *) VIDEO_ADDRESS + 
+                                get_screen_offset(MAX_ROWS - 1, 0);
+
+    for (int i = 0; i < 2 * MAX_COLS; ++i) {
+        *(video_mem + i) = 0;
+    }
+
+    // set cursor to the start of the last line
+    set_cursor(get_screen_offset(MAX_ROWS - 1, 0));
+}
+
 // print_newline() advances the current cursor position to the
 //      start of the next line
 void print_newline() {
@@ -73,7 +122,7 @@ void print_newline() {
 //      next character cell. The styling is handed by attribute_byte 
 // Requires: 
 //      c is a printable character
-//      attribute_byte is either 0, 1 or 2, or a byte for the VGA style to apply
+//      attribute_byte is the VGA style to apply
 void print_char(unsigned char c, unsigned char attribute_byte) {
 
      // Get video memory offset for cursor location
@@ -81,15 +130,6 @@ void print_char(unsigned char c, unsigned char attribute_byte) {
 
     // byte pointer to start of video memory
     unsigned char *video_mem = (unsigned char *) VIDEO_ADDRESS;
-
-    // set some basic styles
-    if (!attribute_byte) {
-        attribute_byte = WHITE_ON_BLACK;
-    } else if (attribute_byte == 1) {
-        attribute_byte = RED_ON_WHITE;
-    } else if (attribute_byte == 2) {
-        attribute_byte = GREEN_ON_BLACK;
-    }
 
     // Handle newline
     if (c == '\n') {
@@ -103,11 +143,17 @@ void print_char(unsigned char c, unsigned char attribute_byte) {
         // advance offset to the next character cell
         offset += 2;
 
-        // TODO: implement this function
-        //offset = handle_scrolling(offset);
+        // If the offset exceeds the VGA buffer, we need to "scroll"
+        if (offset > get_screen_offset(MAX_ROWS - 1, MAX_COLS - 1)) {
+            handle_scrolling();
+            // offset = 0;
+            // video_mem[offset] = 'H';
+            // video_mem[offset + 1] = attribute_byte;
 
-        // update cursor position to the updated offset
-        set_cursor(offset);
+            // Otherwise, update the cursor position to the updated offset
+        } else {
+            set_cursor(offset);
+        }
     }
 }
 
@@ -116,12 +162,11 @@ void print_char(unsigned char c, unsigned char attribute_byte) {
 //      cursor location.
 // Requires:
 //      str is a valid pointer to a null terminated string
-void print(unsigned char *str) {
-    unsigned int offset = get_cursor();
-
+void print(const char str[]) {
     unsigned int i = 0;
+
     while (str[i] != '\0') {
-        print_char(str[i], 2);
+        print_char(str[i], GREEN_ON_BLACK);
         ++i;
     }
 }
@@ -132,13 +177,13 @@ void print(unsigned char *str) {
 //      0 <= row < MAX_ROW
 //      0 <= col < MAX_COL
 //      str is a valid pointer to a null terminated string
-void print_at(unsigned char* str, unsigned int row, unsigned int col) {
+void print_at(const char str[], unsigned int row, unsigned int col) {
     unsigned int offset = get_screen_offset(row, col);
     set_cursor(offset);
 
     unsigned int i = 0;
     while (str[i] != '\0') {
-        print_char(str[i], 2);
+        print_char(str[i], RED_ON_WHITE);
         ++i;
     }
 }
@@ -153,9 +198,7 @@ void clear() {
     // Overwrite VGA buffer with spaces
     // The cursor automatically advances to the next character cell
     for (unsigned int row = 0; row < MAX_ROWS; ++row) {
-        for (unsigned int col = 0; col < MAX_COLS; ++col) {
-            print_char(' ', WHITE_ON_BLACK);
-        }
+        print_line(MAX_COLS, WHITE_ON_BLACK);
     }
 
     // Restore cursor position to the start of the VGA buffer (top-left)

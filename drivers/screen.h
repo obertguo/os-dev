@@ -24,6 +24,12 @@ unsigned int get_screen_offset(unsigned int row, unsigned int col);
 //      the video memory offset location that is given
 void set_cursor(unsigned int offset);
 
+// print_line(count, attribute_byte) prints a space/blank character count 
+//      number of times at the current cursor position. It is styles
+//      with the given attribute_byte
+// Requires: count >= 0 and attribute_byte is a valid styling
+void print_line(unsigned int count, unsigned char attrribute_byte);
+
 // print_newline() advances the current cursor position to the
 //      start of the next line
 void print_newline();
@@ -42,13 +48,13 @@ void print_char(unsigned char c, unsigned char attribute_byte);
 //      0 <= row < MAX_ROW
 //      0 <= col < MAX_COL
 //      str is a valid pointer to a null terminated string
-void print_at(unsigned char* str, unsigned int row, unsigned int col);
+void print_at(const char str[], unsigned int row, unsigned int col);
 
 // print(str) prints the null terminated string str at the current 
 //      cursor location.
 // Requires:
 //      str is a valid pointer to a null terminated string
-void print(unsigned char *str);
+void print(const char str[]);
 
 void clear();
 
