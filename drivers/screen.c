@@ -146,9 +146,6 @@ void print_char(unsigned char c, unsigned char attribute_byte) {
         // If the offset exceeds the VGA buffer, we need to "scroll"
         if (offset > get_screen_offset(MAX_ROWS - 1, MAX_COLS - 1)) {
             handle_scrolling();
-            // offset = 0;
-            // video_mem[offset] = 'H';
-            // video_mem[offset + 1] = attribute_byte;
 
             // Otherwise, update the cursor position to the updated offset
         } else {
