@@ -9,8 +9,8 @@ unsigned int get_screen_offset(unsigned int row, unsigned int col) {
 }
 
 // get_cursor returns the cursor position in video memory
-int get_cursor() {
-    int offset = 0;
+unsigned int get_cursor() {
+    unsigned int offset = 0;
 
     // The device uses the control register as an index
     //      to select its internal registers, which we are interested in
@@ -35,7 +35,7 @@ int get_cursor() {
 
 // set_cursor(offset) sets the cursor position to 
 //      the video memory offset location that is given
-void set_cursor(int offset) {
+void set_cursor(unsigned int offset) {
     // convert video memory offset to character offset
     offset /= 2;
 
@@ -51,10 +51,34 @@ void set_cursor(int offset) {
     port_byte_out(REG_SCREEN_DATA, (unsigned char) (offset));
 }
 
-// print_char(character, row, col, attribute_byte) prints the given
-//      character to the screen at the specified col and row location,
-//      with the given attribute style
-void print_char(char character, int row, int col, char attribute_byte) {
+// print_newline() advances the current cursor position to the
+//      start of the next line
+void print_newline() {
+    unsigned int offset = get_cursor();
+    unsigned int current_row = offset / (2 * MAX_COLS);
+
+    // determine the location of the last character cell in the current row
+    offset = get_screen_offset(current_row, MAX_COLS - 1);
+
+    // advance the offset to the next character cell
+    //      which will be the next line
+    offset += 2;
+
+    // update cursor position
+    set_cursor(offset);
+}
+
+// print_char(c, attribute_byte) prints a character c at the current 
+//      cursor position, and then advances the cursor position to the
+//      next character cell. The styling is handed by attribute_byte 
+// Requires: 
+//      c is a printable character
+//      attribute_byte is either 0, 1 or 2, or a byte for the VGA style to apply
+void print_char(unsigned char c, unsigned char attribute_byte) {
+
+     // Get video memory offset for cursor location
+    unsigned int offset = get_cursor();
+
     // byte pointer to start of video memory
     unsigned char *video_mem = (unsigned char *) VIDEO_ADDRESS;
 
@@ -66,62 +90,74 @@ void print_char(char character, int row, int col, char attribute_byte) {
     } else if (attribute_byte == 2) {
         attribute_byte = GREEN_ON_BLACK;
     }
-    
-    // Get video memory offset for screen nlocation
-    int offset = 0;
 
-    // If col and row are non-negative, use them to calculate memory offset
-    if (row >= 0 && col >= 0) {
-        offset = get_screen_offset(row, col);
-    
-    // Otherwise, use the current cursoer position
-    } else {
-        offset = get_cursor();
-    }
+    // Handle newline
+    if (c == '\n') {
+        print_newline();
 
-    // If we encounter a newline, set the offset to the end
-    //      of the current row, so next char can be advanced 
-    //      to the first col of the next row 
-    if (character == '\n') {
-        int rows = offset / (2 * MAX_COLS);
-        offset = get_screen_offset(rows, MAX_COLS - 1);
-    
-    // Otherwise, write the character and attribute byte at the offset
+    // Otherwise, print character at current offset position
     } else {
-        video_mem[offset] = character;
+        video_mem[offset] = c;
         video_mem[offset + 1] = attribute_byte;
+
+        // advance offset to the next character cell
+        offset += 2;
+
+        // TODO: implement this function
+        //offset = handle_scrolling(offset);
+
+        // update cursor position to the updated offset
+        set_cursor(offset);
     }
-
-    // Update the offset to the next character cell in memory 
-    //      (2 bytes ahead of current)
-    offset += 2;
-
-    // TODO: implement this function
-    //offset = handle_scrolling(offset);
-
-    // Update cursor position to new offset
-    set_cursor(offset);
 }
 
 
-// print_at(message, row, col) prints the given null terminated string message
-//      at the given row and col location
-void print_at(char* message, int row, int col) {
-    if (row >= 0 && col >= 0) {
-        int offset = get_screen_offset(row, col);
-        set_cursor(offset);
-    }
+// print(str) prints the null terminated string str at the current 
+//      cursor location.
+// Requires:
+//      str is a valid pointer to a null terminated string
+void print(unsigned char *str) {
+    unsigned int offset = get_cursor();
 
-
-    int i = 0;
-    while (message[i] != '\0') {
-        print_char(message[i], row, col, 2);
-
-        ++col; // move to next col 
+    unsigned int i = 0;
+    while (str[i] != '\0') {
+        print_char(str[i], 2);
         ++i;
     }
 }
 
-void print(char *message) {
-    print_at(message, -1, -1);
+// print_at(message, row, col) prints the given null terminated string 
+//      str at the given row and col location
+// Requires: 
+//      0 <= row < MAX_ROW
+//      0 <= col < MAX_COL
+//      str is a valid pointer to a null terminated string
+void print_at(unsigned char* str, unsigned int row, unsigned int col) {
+    unsigned int offset = get_screen_offset(row, col);
+    set_cursor(offset);
+
+    unsigned int i = 0;
+    while (str[i] != '\0') {
+        print_char(str[i], 2);
+        ++i;
+    }
+}
+
+// clear() clears the VGA screen 
+void clear() {
+    // We can clear the screen by overwriting the VGA buffer with spaces
+
+    // Set cursor to the start of the screen (top-left)
+    set_cursor(0);
+
+    // Overwrite VGA buffer with spaces
+    // The cursor automatically advances to the next character cell
+    for (unsigned int row = 0; row < MAX_ROWS; ++row) {
+        for (unsigned int col = 0; col < MAX_COLS; ++col) {
+            print_char(' ', WHITE_ON_BLACK);
+        }
+    }
+
+    // Restore cursor position to the start of the VGA buffer (top-left)
+    set_cursor(0);
 }

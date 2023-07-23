@@ -42,8 +42,8 @@ load_kernel:
     mov bx, KERNEL_OFFSET   
     
     mov dl, [BOOT_DRIVE]
-    mov dh, 8              ; load 8 sectors of the disc (after bootloader) 
-    call disk_load         ; into memory
+    mov dh, 10              ; load 10 sectors of the disc (after bootloader) 
+    call disk_load          ; into memory
 
     ret
 
