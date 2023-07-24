@@ -65,8 +65,8 @@ void idt_load() {
 //      and selector and flags sets the corresponding fields for the IDT entry
 void idt_set_gate(unsigned char num, unsigned int base, 
                     unsigned short selector, unsigned char flags) {
-    unsigned short base_lo = base && 0xffff;
-    unsigned short base_hi = (base >> 16) & 0xffff;
+    unsigned short base_lo = base & 0x0000ffff;
+    unsigned short base_hi = (base >> 16) & 0x0000ffff;
 
     idt[num].base_lo = base_lo;
     idt[num].base_hi = base_hi;
@@ -78,6 +78,7 @@ void idt_set_gate(unsigned char num, unsigned int base,
 void my_print() {
     clear();
     print_char('H', GREEN_ON_BLACK);
+    print_char('i', GREEN_ON_BLACK);
 }
 
 // idt_install() should be self explanatory....
@@ -96,7 +97,7 @@ void idt_install() {
 
     // Include user defined ISRs to the IDT here using idt_set_gate()
     idt_set_gate(0, (unsigned int) &my_print, 0x08, 0b10001110);
-    idt_set_gate(1, (unsigned int) &my_print, 0x08, 0b10001110);
+    idt_set_gate(10, (unsigned int) &my_print, 0x08, 0b10001110);
 
     idt_load();
 }
