@@ -4,6 +4,7 @@
 
 #include "idt.h"
 #include "../drivers/screen.h"
+#include "isrs.h"
 
 // Define an IDT entry
 // Each IDT entry is 8 bytes
@@ -81,6 +82,8 @@ void my_print() {
     print_char('i', GREEN_ON_BLACK);
 }
 
+// extern void isr_handler();
+
 // idt_install() should be self explanatory....
 void idt_install() {
     idtp.limit = (sizeof(struct idt_entry) * NUM_IDT_ENTRIES) - 1;
@@ -96,8 +99,8 @@ void idt_install() {
     }
 
     // Include user defined ISRs to the IDT here using idt_set_gate()
-    idt_set_gate(0, (unsigned int) &my_print, 0x08, 0b10001110);
-    idt_set_gate(10, (unsigned int) &my_print, 0x08, 0b10001110);
+    isrs_install();
+    // idt_set_gate(50, (unsigned int) &isr_handler, 0x08, 0b10001110);
 
     idt_load();
 }

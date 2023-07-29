@@ -36,6 +36,6 @@ void main() {
 
 void call_int() {
 	__asm__ volatile (
-		"int %0" : : "i" (10)
+		"int %0" : : "i" (0)
 	);
 }
