@@ -5,6 +5,7 @@
 #include "idt.h"
 #include "../drivers/screen.h"
 #include "isrs.h"
+#include "irq.h"
 
 // Define an IDT entry
 // Each IDT entry is 8 bytes
@@ -59,12 +60,19 @@ void idt_load() {
     );
 }
 
+// enable_interrupt() sets the interrupt flag after interrupts have been cleared
+// This is just a formal way to initialize interrupts after IDT is installed
+void enable_interrupt() {
+    __asm__ volatile(
+        "sti" : :
+    );
+}
 
 // idt_set_gate(num, base, selector, flags) sets an entry in
 //      the IDT. Num specifies the entry number in the IDT, base specifies the 
 //      memory address of the function to invoke for this interrupt
 //      and selector and flags sets the corresponding fields for the IDT entry
-void idt_set_gate(unsigned char num, void *base, 
+void idt_set_gate(unsigned char num, void *(base)(void), 
                     unsigned short selector, unsigned char flags) {
 
     const unsigned int func = (unsigned int) base;
@@ -94,9 +102,11 @@ void idt_install() {
 
     // Install interrupt service routines, which are interrupts 0 to 31
     isrs_install();
+    irq_install();
 
     // Install any user defined ISRs to the IDT here using idt_set_gate()
 
     // Load the IDT
     idt_load();
+    // enable_interrupt();
 }

@@ -36,6 +36,7 @@ extern void isr28();
 extern void isr29();
 extern void isr30();
 extern void isr31();
+extern void isr31();
 
 const char *exception_messages[] = {
     "Division By Zero",
@@ -72,66 +73,19 @@ const char *exception_messages[] = {
     "Reserved 31"
 };
 
-struct registers {
-    unsigned int gs;        // pushed last
-    unsigned int fs;
-    unsigned int es;
-    unsigned int ds;
-
-    unsigned int edi;       // pushed by pusha
-    unsigned int esi;
-    unsigned int ebp;
-    unsigned int esp;
-    unsigned int ebx;
-    unsigned int edx;
-    unsigned int ecx;
-    unsigned int eax;
-
-    unsigned int int_no;    // pushed by us
-    unsigned int err_code;  // pushed by processor or us
-
-    unsigned int eip;       // pushed by processor when calling interrupt
-    unsigned int cs;
-    unsigned int eflags;
-    unsigned int useresp;
-    unsigned int ss;
-} __attribute__((packed));
-
+void *isr_routines[] = {
+    isr0, isr1, isr2, isr3, isr4, isr5, isr6, isr7,
+    isr8, isr9, isr10, isr11, isr12, isr13, isr14, isr15,
+    isr16, isr17, isr18, isr19, isr20, isr21, isr22, isr23,
+    isr24, isr25, isr26, isr27, isr28, isr29, isr30, isr31
+};
 
 // isrs_install() sets the interrupt service routines in the IDT
 void isrs_install() {
-    idt_set_gate(0, &isr0, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(1, &isr1, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(2, &isr2, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(3, &isr3, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(4, &isr4, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(5, &isr5, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(6, &isr6, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(7, &isr7, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(8, &isr8, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(9, &isr9, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(10, &isr10, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(11, &isr11, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(12, &isr12, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(13, &isr13, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(14, &isr14, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(15, &isr15, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(16, &isr16, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(17, &isr17, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(18, &isr18, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(19, &isr19, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(20, &isr20, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(21, &isr21, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(22, &isr22, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(23, &isr23, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(24, &isr24, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(25, &isr25, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(26, &isr26, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(27, &isr27, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(28, &isr28, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(29, &isr29, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(30, &isr30, KERNEL_CODE_SEGMENT, FLAGS);
-    idt_set_gate(31, &isr31, KERNEL_CODE_SEGMENT, FLAGS);
+    // Install first 32 ISRs for exceptions
+    for (unsigned char i = 0; i < 32; ++i) {
+        idt_set_gate(i, isr_routines[i], KERNEL_CODE_SEGMENT, FLAGS);
+    }
 }
 
 // fault_handler(r) handles interrupt exceptions from 0 to 31 by

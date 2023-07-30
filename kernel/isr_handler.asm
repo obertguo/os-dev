@@ -1,8 +1,10 @@
 ; http://www.osdever.net/bkerndev/Docs/isrs.htm
 
-[extern fault_handler]     ; Let compiler know that _fault_handler will be
+[extern fault_handler]      ; Let compiler know that _fault_handler will be
                             ; implemented later in our C code
-global isr0                ; Needed so that this function symbol is exported
+
+                            ; ISR 0 to 31 are reserved 
+global isr0                 ; Needed so that this function symbol is exported
                             ; for the linker so that when our C code calls this 
                             ; function, it gets resolved to this function that
                             ; we implemented here - like a header file of sorts.
@@ -38,7 +40,7 @@ global isr29
 global isr30
 global isr31
 
-; We have an isr_common_stub function that saves the processor state on 
+;   We have an isr_common_stub function that saves the processor state on 
 ;   on the stack, push the current stack address onto the stack
 ;   (gives our C handler the stack), call our C fault_handler function
 ;   and finally restore the state of the stack
