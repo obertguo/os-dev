@@ -1,7 +1,8 @@
 # Compiler flags
 CFLAGS= -ffreestanding -c -nostdlib -m32 -fno-pie -Wall -Wextra -std=c99
 NASMFLAGS= -f bin -I ./boot
-LDFLAGS= -m elf_i386 -Ttext-segment 0x1000 -Trodata-segment 0x2000 --oformat binary
+# LDFLAGS= -m elf_i386 -Ttext-segment 0x1000 -Trodata-segment 0x2000 --oformat binary
+LDFLAGS= -m elf_i386 -T script.lds --oformat binary
 
 # Auto generate lists of sources
 C_FILES=$(wildcard kernel/*.c drivers/*.c)

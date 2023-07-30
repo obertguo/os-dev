@@ -64,10 +64,12 @@ void idt_load() {
 //      the IDT. Num specifies the entry number in the IDT, base specifies the 
 //      memory address of the function to invoke for this interrupt
 //      and selector and flags sets the corresponding fields for the IDT entry
-void idt_set_gate(unsigned char num, unsigned int base, 
+void idt_set_gate(unsigned char num, void *base, 
                     unsigned short selector, unsigned char flags) {
-    unsigned short base_lo = base & 0x0000ffff;
-    unsigned short base_hi = (base >> 16) & 0x0000ffff;
+
+    const unsigned int func = (unsigned int) base;
+    unsigned short base_lo = func & 0x0000ffff;
+    unsigned short base_hi = (func >> 16) & 0x0000ffff;
 
     idt[num].base_lo = base_lo;
     idt[num].base_hi = base_hi;
@@ -76,15 +78,7 @@ void idt_set_gate(unsigned char num, unsigned int base,
     idt[num].flags = flags;
 }
 
-void my_print() {
-    clear();
-    print_char('H', GREEN_ON_BLACK);
-    print_char('i', GREEN_ON_BLACK);
-}
-
-// extern void isr_handler();
-
-// idt_install() should be self explanatory....
+// idt_install() sets up the interrupt descriptor table
 void idt_install() {
     idtp.limit = (sizeof(struct idt_entry) * NUM_IDT_ENTRIES) - 1;
     idtp.base = (unsigned int) &idt;
@@ -98,9 +92,11 @@ void idt_install() {
         idt[i].flags = 0;
     }
 
-    // Include user defined ISRs to the IDT here using idt_set_gate()
+    // Install interrupt service routines, which are interrupts 0 to 31
     isrs_install();
-    // idt_set_gate(50, (unsigned int) &isr_handler, 0x08, 0b10001110);
 
+    // Install any user defined ISRs to the IDT here using idt_set_gate()
+
+    // Load the IDT
     idt_load();
 }

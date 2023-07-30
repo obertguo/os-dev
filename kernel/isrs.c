@@ -1,3 +1,5 @@
+// http://www.osdever.net/bkerndev/Docs/isrs.htm
+
 #include "isrs.h"
 #include "idt.h"
 #include "../drivers/screen.h"
@@ -35,6 +37,41 @@ extern void isr29();
 extern void isr30();
 extern void isr31();
 
+const char *exception_messages[] = {
+    "Division By Zero",
+    "Debug Exception", 
+    "Non Maskable Interrupt Exception",
+    "Breakpoint Exception",
+    "Into Detected Overflow Exception",
+    "Out of Bounds Exception",
+    "Invalid Opcode Exception",
+    "No Coprocessor Exception",
+    "Double Fault Exception",
+    "Coprocessor Segment Overrun Exception",
+    "Bad TSS Exception",
+    "Segment Not Present Exception",
+    "Stack Fault Exception",
+    "General Protection Fault Exception",
+    "Page Fault Exception",
+    "Unknown Interrupt Exception",
+    "Coprocessor Fault Exception",
+    "Alignment Check Exception (486+)",
+    "Machine Check Exception (Pentium/586+)",
+    "Reserved 19",
+    "Reserved 20",
+    "Reserved 21",
+    "Reserved 22",
+    "Reserved 23",
+    "Reserved 24",
+    "Reserved 25",
+    "Reserved 26",
+    "Reserved 27",
+    "Reserved 28",
+    "Reserved 29",
+    "Reserved 30",
+    "Reserved 31"
+};
+
 struct registers {
     unsigned int gs;        // pushed last
     unsigned int fs;
@@ -60,6 +97,8 @@ struct registers {
     unsigned int ss;
 } __attribute__((packed));
 
+
+// isrs_install() sets the interrupt service routines in the IDT
 void isrs_install() {
     idt_set_gate(0, &isr0, KERNEL_CODE_SEGMENT, FLAGS);
     idt_set_gate(1, &isr1, KERNEL_CODE_SEGMENT, FLAGS);
@@ -95,16 +134,16 @@ void isrs_install() {
     idt_set_gate(31, &isr31, KERNEL_CODE_SEGMENT, FLAGS);
 }
 
-const char *exception_messages[] = {
-    "Division By Zero",
-    "Hello"
-};
-
+// fault_handler(r) handles interrupt exceptions from 0 to 31 by
+//      printing the exception message and then hangs.
+// Requires: r is a valid pointer to a stack with register values pushed onto it
+//          when invoked by a function in our isr_handler 
 void fault_handler(const struct registers *r) {
-    const char msg[] = "Interrupt Raised!";
-
     // Check if the interrupt number is from 0 to 32
-    if (r->int_no < 32) {
-        print(msg);
+    if (r && r->int_no < 32) {
+        print("System Halted - Exception Raised! ");
+        print(exception_messages[r->int_no]);
+
+        for (;;) {} // Hang forever
     }
 }

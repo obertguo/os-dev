@@ -9,7 +9,11 @@ void call_int();
 
 void main() {
 	idt_install();
-	call_int();
+	clear();
+
+	print_mario();
+	int a = 5 / 0;
+	// call_int();
 
 	// clear();
 	// print_mario();
@@ -36,6 +40,8 @@ void main() {
 
 void call_int() {
 	__asm__ volatile (
-		"int %0" : : "i" (0)
+		"int %0" 
+		: 
+		: "i" (31)
 	);
 }
