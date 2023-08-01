@@ -12,8 +12,7 @@ void main() {
 	clear();
 
 	print_mario();
-	//int a = 5 / 0;
-	call_int();
+	// call_int();
 
 	// clear();
 	// print_mario();
@@ -42,6 +41,6 @@ void call_int() {
 	__asm__ volatile (
 		"int %0" 
 		: 
-		: "i" (50)
+		: "i" (32)
 	);
 }

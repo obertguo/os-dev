@@ -88,7 +88,7 @@ void irq_install() {
     port_byte_out(PIC_SLAVE_DATA, slave_data);
 
     for (unsigned char i = 32; i < 48; ++i) {
-        idt_set_gate(i, isr_routines_irq[i], KERNEL_CODE_SEGMENT, FLAGS);
+        idt_set_gate(i, isr_routines_irq[i - 32], KERNEL_CODE_SEGMENT, FLAGS);
     }
 }
 

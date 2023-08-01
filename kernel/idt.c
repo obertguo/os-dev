@@ -104,9 +104,11 @@ void idt_install() {
     isrs_install();
     irq_install();
 
-    // Install any user defined ISRs to the IDT here using idt_set_gate()
+    // Install any user defined ISRs to the IDT here
 
     // Load the IDT
     idt_load();
-    // enable_interrupt();
+
+    // Call sti instruction to enable interrupts
+    enable_interrupt();
 }
