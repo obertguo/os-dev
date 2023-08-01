@@ -1,7 +1,8 @@
 # os-dev
-A journey in OS development starting from scratch, using assembly (and hopefully later, C for the kernel)
+A journey in OS development starting from scratch, using a mix of assembly and C. 
 
-Credit to Nick Blundell for creating a comprehensive writeup for OS development, which this project will initially be following along with, https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf 
+Credit to Nick Blundell for creating a comprehensive paper for the initial necessary guidance for OS development, 
+https://www.cs.bham.ac.uk/~exr/lectures/opsys/10_11/lectures/os-dev.pdf 
 
 # Getting Started
 The project uses the NASM compiler to compile assembly files, the GCC compiler to compile C files, and the LD GNU linker to link resulting object files.
@@ -12,4 +13,4 @@ To compile the project in Linux, use `make`. The resulting raw os image is found
 
 To clean the project, removing all intermediate object and raw binary files, as well as the final os image, use `make clean`. 
 
-To run the OS in Qemu, use `qemu-system-x86_64.exe image` or `make run`.
+To run the OS in Qemu, use `qemu-system-x86_64.exe os-image` or `make run`.
