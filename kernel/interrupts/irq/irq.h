@@ -1,9 +1,10 @@
 // https://wiki.osdev.org/8259_PIC
 // https://wiki.osdev.org/Talk:8259_PIC
 // http://www.osdever.net/bkerndev/Docs/irqs.htm
-
 #ifndef IRQ_H
 #define IRQ_H
+
+#include "../isrs/isrs.h"
 
 #define PIC_MASTER_CMD 0x20         // IO port address
 #define PIC_MASTER_DATA 0x21        // IO port address
@@ -29,7 +30,7 @@
 //      for the corresponding IRQ number (without the IDT offset)
 // Requires: 0 <= irq < 16, and handler is a valid function pointer
 void irq_install_handler(unsigned int irq, 
-                        void *(handler)(const struct registers *r));
+                        void (*handler)(const struct registers *r));
 
 // irq_uninstall_handler(irq) uninstalls the handler for the corresponding
 //      IRQ number (without the IDT offset)

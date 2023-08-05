@@ -37,7 +37,7 @@ void *irq_routines[] = {
 //      for the corresponding IRQ number (without the IDT offset)
 // Requires: 0 <= irq < 16, and handler is a valid function pointer
 void irq_install_handler(unsigned int irq, 
-    void *(handler)(const struct registers *r)) {
+    void (*handler)(const struct registers *r)) {
     irq_routines[irq] = handler;
 }
 

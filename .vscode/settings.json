@@ -2,6 +2,7 @@
     "files.associations": {
         "isrs.h": "c",
         "*.ld": "cpp",
-        "idt.h": "c"
+        "idt.h": "c",
+        "irq.h": "c"
     }
 }

@@ -8,7 +8,7 @@ unsigned int timer_ticks = 0;
 
 // set_timer_phase(hz) sets how many times per second the PIT should send IRQ0
 // requires: 0 <= hz <= 2^16
-void set_timer_phase(unsigned int hz) {
+void set_timer_phase(const unsigned int hz) {
     // PIT supports 16 bit so we use short, and use this calculation to obtain
     //  a scaling factor that we write to the PIT channel 0 data port
     //  so that we set the appropriate PIT clock speed 
@@ -28,11 +28,12 @@ void set_timer_phase(unsigned int hz) {
 //      to set up PIT
 // Requires: r is a valid pointer to register values on the stack, called
 //          by our IRQ handler function 
-void *timer_handler(const struct registers *r) {
+void timer_handler(const struct registers *r) {
     ++timer_ticks;
 
+    // Print a message every second
     if (timer_ticks % PIT_HZ == 0) {
-        print("\nOne second has passed");
+        // print("One second has passed\n");
     }
 }
 
@@ -41,4 +42,17 @@ void *timer_handler(const struct registers *r) {
 void timer_install() {
     set_timer_phase(PIT_HZ);
     irq_install_handler(0, timer_handler);
+}
+
+// sleep(ms) will delay current code execution for ms milliseconds
+void sleep(const unsigned int ms) {
+    // reset timer ticks to 0 and use it as a counter
+    // since timer_ticks is configured to increment by 1 each time 1 ms passes
+    timer_ticks = 0;
+
+    while (1) {
+        if (timer_ticks > ms) {
+            break;
+        }
+    }
 }

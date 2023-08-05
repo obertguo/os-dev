@@ -56,7 +56,7 @@ isr32:
     push byte 32        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr33:
+isr33:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -64,7 +64,7 @@ isr32:
     push byte 33        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr34:
+isr34:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -72,7 +72,7 @@ isr32:
     push byte 34        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr35:
+isr35:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -80,7 +80,7 @@ isr32:
     push byte 35        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr36:
+isr36:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -88,7 +88,7 @@ isr32:
     push byte 36        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr37:
+isr37:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -96,7 +96,7 @@ isr32:
     push byte 37        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr38:
+isr38:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -104,7 +104,7 @@ isr32:
     push byte 38        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr39:
+isr39:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -112,7 +112,7 @@ isr32:
     push byte 39        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr40:
+isr40:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -120,7 +120,7 @@ isr32:
     push byte 40        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr41:
+isr41:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -128,7 +128,7 @@ isr32:
     push byte 41        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr42:
+isr42:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -136,7 +136,7 @@ isr32:
     push byte 42        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr43:
+isr43:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -144,7 +144,7 @@ isr32:
     push byte 43        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr44:
+isr44:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 
@@ -152,7 +152,7 @@ isr32:
     push byte 44        ; To track which interrupt is fired
     jmp irq_common_stub
     
-    isr45:
+isr45:
     cli                 ; Clear/disable interrupts to prevent another IRQ from firing
                         ; which could possibly cause conflicts in our kernel
     push byte 0         ; A normal ISR stub that pops a dummy error code 

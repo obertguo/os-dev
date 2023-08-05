@@ -10,12 +10,29 @@
 void call_int();
 
 void main() {
+	// First, install IRQ routines
 	timer_install();
-	// keyboard_install();
+	keyboard_install();
+
+	// Then install IDT
 	idt_install();
+
 	clear();
 
+	// Next, initialize keyboard to use scancode set 2 (usually is the default)
+	//		But, since keyboard output is fed to a 8042 microprocessor
+	//		the scancode gets translated back into scancode set 1
+	//		This is due to compatibility reasons
+	keyboard_set_scancode(SCANCODE_2);
+	keyboard_get_scancode();
+
+	// some stuff
+	sleep(500);
+	clear();
 	print_mario();
+	sleep(500);
+	clear();
+	
 	// call_int();
 
 	// clear();

@@ -14,7 +14,10 @@
 // (which translates to 65536)
 // which gives an output frequency of 18.2065 Hz (or an IRQ every 54.9254 ms)
 
-#define PIT_HZ 100 // our own defined PIT clock frequency!
+// Our own defined PIT clock frequency! 
+// Set at 1000Hz for now so that the PIT fires IRQ0 every 1ms
+#define PIT_HZ 1000 
+
 
 // bits 6-7 - PIT channel select - we pick channel 0
 // bits 4-5 - Access mode where 
@@ -31,5 +34,8 @@
 // timer_install() sets up the PIT with the desired IRQ0 frequency and
 //      installs the handler function into the IDT
 void timer_install();
+
+// sleep(ms) will delay current code execution for ms milliseconds
+void sleep(const unsigned int ms);
 
 #endif
