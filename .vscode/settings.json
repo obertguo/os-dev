@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "isrs.h": "c",
-        "*.ld": "cpp"
+        "*.ld": "cpp",
+        "idt.h": "c"
     }
 }

@@ -109,12 +109,22 @@ void print_newline() {
     // determine the location of the last character cell in the current row
     offset = get_screen_offset(current_row, MAX_COLS - 1);
 
-    // advance the offset to the next character cell
-    //      which will be the next line
-    offset += 2;
 
-    // update cursor position
-    set_cursor(offset);
+    // Handle edge case where offset is at the last row
+    if (offset >= get_screen_offset(MAX_ROWS - 1, MAX_COLS - 1)) {
+        // If the cursor is at the last row, then we should scroll as that
+        //      has the similar effect of adding a new line
+        handle_scrolling();
+
+        // Otherwise, if the offset is not at the last row, then we can handle
+        //      this easily as well
+    } else {
+        // advance the offset to the next character cell
+        //      which will be the next line in the screen
+        offset += 2;
+        // update cursor position
+        set_cursor(offset);
+    }
 }
 
 // print_char(c, attribute_byte) prints a character c at the current 
@@ -133,6 +143,7 @@ void print_char(unsigned char c, unsigned char attribute_byte) {
 
     // Handle newline
     if (c == '\n') {
+        
         print_newline();
 
     // Otherwise, print character at current offset position
