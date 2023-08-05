@@ -5,14 +5,17 @@ NASMFLAGS= -f bin -I ./boot
 LDFLAGS= -m elf_i386 -T script.lds --oformat binary
 
 # Auto generate lists of sources
-C_FILES=$(wildcard kernel/*.c drivers/*.c)
-C_HEADERS=$(wildcard kernel/*.h drivers/*.h)
+C_FILES=$(wildcard kernel/*.c kernel/*/*.c kernel/*/*/*.c drivers/*.c)
 C_OBJ_FILES=$(C_FILES:.c=.o) # This is needed for the implicit %.o: %.c rule later
 
-ASM_FILES=$(wildcard kernel/*.asm drivers/*.asm)
+ASM_FILES=$(wildcard kernel/*.asm kernel/*/.asm kernel/*/*/*.asm drivers/*.asm)
 ASM_OBJ_FILES=$(ASM_FILES:.asm=.o)
 
+SUB_DIRS=$(wildcard kernel/*.)
 # TODO: Make sources depend on all header files
+
+echo:
+	echo ${C_FILES}
 
 # Default build target
 all: os-image
@@ -23,8 +26,8 @@ run: os-image
 
 clean:
 	rm -rf *.bin *.o os-image
-	rm -rf kernel/*.o
-	rm -rf drivers/*.o
+	rm -rf ${C_OBJ_FILES}
+	rm -rf ${ASM_OBJ_FILES}
 
 # Assemble compiled bootloader binary with compiled kernel binary
 os-image: boot.bin kernel.bin

@@ -1,5 +1,5 @@
 #include "screen.h"
-#include "../kernel/kernel_low_level.h"
+#include "../kernel/util.h"
 #include "../kernel/util.h"
 
 // get_screen_offset(row, col) maps the row and col coordinates and

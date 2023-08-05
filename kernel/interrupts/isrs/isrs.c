@@ -1,8 +1,8 @@
 // http://www.osdever.net/bkerndev/Docs/isrs.htm
 
 #include "isrs.h"
-#include "idt.h"
-#include "../drivers/screen.h"
+#include "../idt/idt.h"
+#include "../../../drivers/screen.h"
 
 extern void isr0();
 extern void isr1();

@@ -1,8 +1,8 @@
-#include "isrs.h"
-#include "idt.h"
-#include "kernel_low_level.h"
+#include "../isrs/isrs.h"
+#include "../idt/idt.h"
+#include "../../util.h"
 #include "irq.h"
-#include "../drivers/screen.h"
+#include "../../../drivers/screen.h"
 
 extern void isr32();
 extern void isr33();
@@ -114,7 +114,7 @@ void irq_handler(const struct registers *r) {
         // do something here if no handler is implemented yet...
     } else {
         clear();
-        print("Not implemented!");
+        print("IRQ handler is not implemented!");
     }
 
     // If IRQ that is called is invoked by the slave PIC (IRQ 40 to 47)

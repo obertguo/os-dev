@@ -3,9 +3,9 @@
 // http://www.osdever.net/bkerndev/Docs/idt.htm
 
 #include "idt.h"
-#include "../drivers/screen.h"
-#include "isrs.h"
-#include "irq.h"
+#include "../../../drivers/screen.h"
+#include "../isrs/isrs.h"
+#include "../irq/irq.h"
 
 // Define an IDT entry
 // Each IDT entry is 8 bytes

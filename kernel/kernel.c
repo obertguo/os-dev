@@ -1,5 +1,6 @@
 #include "../drivers/screen.h"
-#include "idt.h"
+#include "interrupts/idt/idt.h"
+#include "../drivers/pit.h"
 // https://stackoverflow.com/questions/30552163/c-kernel-printing-string-not-working
 // https://wiki.osdev.org/Printing_To_Screen
 
@@ -8,6 +9,7 @@
 void call_int();
 
 void main() {
+	timer_install();
 	idt_install();
 	clear();
 
