@@ -1,6 +1,7 @@
 #include "screen.h"
 #include "../kernel/util.h"
 #include "../kernel/util.h"
+#include <stdarg.h>
 
 // get_screen_offset(row, col) maps the row and col coordinates and
 //      returns the memory offset for that character cell relative
@@ -143,9 +144,19 @@ void print_char(unsigned char c, unsigned char attribute_byte) {
 
     // Handle newline
     if (c == '\n') {
-        
         print_newline();
 
+    // Handle backspace
+    } else if (c == '\b') {
+
+        // Reset current cell
+        video_mem[offset] = 0;
+        video_mem[offset + 1] = 0;
+
+        // Move the cursor back as long as it is past the start of video memory
+        if (offset > 0) {
+            set_cursor(offset - 1);
+        }
     // Otherwise, print character at current offset position
     } else {
         video_mem[offset] = c;
@@ -211,4 +222,69 @@ void clear() {
 
     // Restore cursor position to the start of the VGA buffer (top-left)
     set_cursor(0);
+}
+
+// printf(format, ...) is a custom implementation of the print format function
+//      in the C standard library. Currently supports %s, %c, and %d
+// https://stackoverflow.com/questions/1735236/how-to-write-my-own-printf-in-c
+void printf(char *format, ...) {
+    va_list arg = 0;
+    va_start(arg, format);
+
+    unsigned char *current = 0;
+    
+    for (current = format; *current != '\0'; ++current) {
+        if (*current != '\%') {
+            print_char(*current, WHITE_ON_BLACK);
+        } else {
+            ++current;
+            unsigned char specifier = *current;
+            
+            switch (specifier) {
+                case 's':
+                    unsigned char *str = va_arg(arg, char *);
+                    print(str);
+                    break;
+                    
+                case 'd':
+                    int orig_num = va_arg(arg, char *);
+                    int num = orig_num;
+                    int multiplier = 1;
+                    
+                    if (num == 0) {
+                        print_char('0', WHITE_ON_BLACK);
+                        break;
+                    }
+
+                    if (num < 0) {
+                        print_char('-', WHITE_ON_BLACK);
+
+                        // pray this won't cause overflow issues...
+                        orig_num *= -1;  
+                        num = orig_num;
+                    }
+
+                    while (num != 0) {
+                        num /= 10;
+                        multiplier *= 10;
+                    }
+
+                    while (multiplier > 1) {
+                        multiplier /= 10;
+                        print_char(orig_num / multiplier + '0',WHITE_ON_BLACK);
+                        orig_num %= multiplier;
+                    }
+
+                    break;
+                
+                case 'c':
+                    char c = va_arg(arg, int);
+                    print_char(c, WHITE_ON_BLACK);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
 }

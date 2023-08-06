@@ -7,11 +7,11 @@
 // https://stackoverflow.com/questions/3215878/what-are-in-out-instructions-in-x86-used-for
 
 
-// memory_copy(src, dest, no_bytes) copies the number of bytes from the 
+// memory_copy(dest, src, no_bytes) copies the number of bytes from the 
 //      destination to the src location
 // Requires: src and dest are valid pointers, and no_bytes >= 0
-void memory_copy(unsigned char *src, 
-    const unsigned char *dest, unsigned int no_bytes);
+void memory_copy(unsigned char *dest, 
+    const unsigned char *src, unsigned int no_bytes);
 
 // port_byte_in(port) reads and returns a byte 
 //      from the given I/O port address

@@ -5,7 +5,7 @@ NASMFLAGS= -f bin -I ./boot
 LDFLAGS= -m elf_i386 -T script.lds --oformat binary
 
 # Auto generate lists of sources
-C_FILES=$(wildcard kernel/*.c kernel/*/*.c kernel/*/*/*.c drivers/*.c)
+C_FILES=$(wildcard kernel/*.c kernel/*/*.c kernel/*/*/*.c drivers/*.c shell/*.c)
 C_OBJ_FILES=$(C_FILES:.c=.o) # This is needed for the implicit %.o: %.c rule later
 
 ASM_FILES=$(wildcard kernel/*.asm kernel/*/.asm kernel/*/*/*.asm drivers/*.asm)

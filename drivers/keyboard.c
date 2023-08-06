@@ -8,9 +8,21 @@
 #include "../kernel/interrupts/irq/irq.h"
 #include "../kernel/interrupts/isrs/isrs.h"
 #include "screen.h"
+#include "../kernel/util.h"
 
 // scancode to ASCII mapping table
 const unsigned char scancode_set_1_US[128];
+
+// Store inputs
+unsigned char input_buffer[INPUT_BUFFER_SIZE] = {0};
+unsigned char input_buffer_cpy[INPUT_BUFFER_SIZE] = {0};
+unsigned char input_buffer_idx = 0;
+
+// Flags for special keyboard keys for when they are pressed
+unsigned char LEFT_SHIFT_DOWN = 0;
+unsigned char RIGHT_SHIFT_DOWN = 0;
+unsigned char CAPS_LOCK_ON = 1;
+unsigned char ENTER_PRESSED = 0;
 
 // keyboard_set_scancode(scancode) sets the keyboard controller to use
 //      the scancode set scancode.
@@ -44,6 +56,12 @@ unsigned char keyboard_get_scancode() {
     return scancode;
 }
 
+// keyboard_set_led(led) sets the LED state on the keyboard
+void keyboard_set_led(enum SET_KEYBOARD_LEDS led) {
+    port_byte_out(KEYBOARD_PORT, SET_LED_CMD);
+	port_byte_out(KEYBOARD_PORT, led);
+}
+
 // print_key(r) handles keyboard IRQ1 and prints the key that was pressed
 //      if the key is ASCII printable.
 // Requires: r is a valid pointer to register values on the stack, invoked by
@@ -58,19 +76,135 @@ void print_key(const struct registers *r) {
         // Scancode starting at 0x80 and higher can indicate key releases
     } else if (scancode & 0x80) {
         
-        // We can include code later to handle if a user 
-        // releases shift, ctl, alt, etcs
+        // Retrieve the key that is released using XOR and our lookup table
+        unsigned char c = scancode_set_1_US[scancode ^ 0x80];
+
+        if (c == LEFT_SHIFT) {
+            LEFT_SHIFT_DOWN = 0;
+        } else if (c == RIGHT_SHIFT){
+            RIGHT_SHIFT_DOWN = 0;
+        }
 
 
-        // Else, a key is pressed, and we'll get multiple key press interrupts
-        // if its held down
+    // Else, a key is pressed, and we'll get multiple key press interrupts
+    // if its held down
     } else {
         // for now, we will just print the key to console
         // we can add some more checks later for Ctl, Alt, Shift keys, etc
         // or use larger lookup table
 
         unsigned char c = scancode_set_1_US[scancode];
-        print_char(c, RED_ON_WHITE);
+
+        // ASCII printable, 
+        if (' ' <= c && c <= '~') {
+
+            // Handle caps lock logic
+            if (CAPS_LOCK_ON) {
+                if ('a' <= c && c <= 'z') {
+                    c -= 'a' - 'A';
+                }
+            }
+
+            // Handle shift logic
+            if (LEFT_SHIFT_DOWN ^ RIGHT_SHIFT_DOWN) {
+                if ('a' <= c && c <= 'z') {
+                    c -= 'a' - 'A';
+                } else if ('0' <= c && c <= '9') {
+                    unsigned char lookup[] = {')', '!', '@', '#', '$', '%', 
+                                                '^', '&', '*', '('};
+                    c = lookup[c - '0'];
+                } else {
+                    switch (c) {
+                        case '`':
+                            c = '~';
+                            break;
+                        case '-':
+                            c = '_';
+                            break;
+                        case '=':
+                            c = '+';
+                            break;
+                        case '[':
+                            c = '{';
+                            break;
+                        case ']':
+                            c = '}';
+                            break;
+                        case '\\':
+                            c = '|';
+                            break;
+                        case ';':
+                            c = ':';
+                            break;
+                        case '\'':
+                            c = '\"';
+                            break;
+                        case ',':
+                            c = '<';
+                            break;
+                        case '.':
+                            c = '>';
+                            break;
+                        case '/':
+                            c = '?';
+                            break; 
+                        default:
+                            break;
+                    }
+                }
+            }
+            input_buffer[input_buffer_idx] = c;
+            ++input_buffer_idx;
+
+            print_char(c, RED_ON_WHITE);
+        
+        // Backspace
+        } else if (c == '\b') {
+            input_buffer[input_buffer_idx] = '\0';
+
+            if (input_buffer_idx > 0) {
+                --input_buffer_idx;
+                print_char(c, WHITE_ON_BLACK);
+            }
+
+        } else if (c == LEFT_SHIFT) {
+            LEFT_SHIFT_DOWN = 1;
+        } else if (c == RIGHT_SHIFT){
+            RIGHT_SHIFT_DOWN = 1;
+        } else if (c == CAPS_LOCK) {
+            CAPS_LOCK_ON = !CAPS_LOCK_ON;
+        } else if (c == '\n') {
+            ENTER_PRESSED = 1;
+        } else {
+            print("Not printable");
+        }
+        keyboard_set_led(CAPS_LOCK);
+    }
+}
+
+// get_line() returns a pointer to a string containing whatever was inputted
+//      into the console since the last enter key press 
+//      Otherwise, if the enter was not pressed, it returns a null pointer
+unsigned char *get_line() {
+    if (ENTER_PRESSED) {
+
+        // Reset enter key press flag
+        ENTER_PRESSED = 0;
+        
+        // Copy input buffer
+        memory_copy(input_buffer_cpy, input_buffer, INPUT_BUFFER_SIZE);
+
+        // Reset input buffer and index
+        for (unsigned char i = 0; i < INPUT_BUFFER_SIZE; ++i) {
+            input_buffer[i] = 0;
+        }
+
+        input_buffer_idx = 0;
+        
+        // Return copied string
+        return input_buffer_cpy;
+    } else {
+        return 0;
     }
 }
 
@@ -87,10 +221,10 @@ const unsigned char scancode_set_1_US[128] = {
     'q', 'w', 'e', 'r',	't', 'y', 'u', 'i', 'o', 'p', '[', ']',         // entry 0x1b - 27
     '\n' /* Enter key */, 0 /* Left Control */,                         // entry 0x1d - 29
     'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';', '\'', '`',        // entry 0x29 - 41
-    0 /* Left shift */, '\\', 'z', 'x', 'c', 'v', 'b', 'n',             // entry 0x31 - 
-    'm', ',', '.', '/',   0 /* Right shift */,                          // entry 0x36
+    LEFT_SHIFT, '\\', 'z', 'x', 'c', 'v', 'b', 'n',                     // entry 0x31 - 
+    'm', ',', '.', '/',   RIGHT_SHIFT,                                  // entry 0x36
     '*' /* Keypad * */, 0 /* Left Alt */,                               // entry 0x38
-    ' '/* Space bar */, 0 /* Caps lock */,                              // entry 0x3a
+    ' '/* Space bar */, CAPS_LOCK,                                      // entry 0x3a
     
     0,	/* F1 key ... > */                                              // entry 0x3b - 59
     0,   0,   0,   0,   0,   0,   0,   0,                               // entry 0x3c to 0x43

@@ -56,6 +56,11 @@ void print_at(const char str[], unsigned int row, unsigned int col);
 //      str is a valid pointer to a null terminated string
 void print(const char str[]);
 
+// clear() is self explanatory. It clears the screen.
 void clear();
+
+// printf(format, ...) is a custom implementation of the print format function
+//      in the C standard library. Currently supports %s, %c, and %d
+void printf(char *format, ...);
 
 #endif

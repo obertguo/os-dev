@@ -2,6 +2,7 @@
 #include "interrupts/idt/idt.h"
 #include "../drivers/pit.h"
 #include "../drivers/keyboard.h"
+#include "../shell/shell.h"
 // https://stackoverflow.com/questions/30552163/c-kernel-printing-string-not-working
 // https://wiki.osdev.org/Printing_To_Screen
 
@@ -26,12 +27,14 @@ void main() {
 	keyboard_set_scancode(SCANCODE_2);
 	keyboard_get_scancode();
 
-	// some stuff
-	sleep(500);
+	//some stuff
 	clear();
+	sleep(500);
 	print_mario();
 	sleep(500);
 	clear();
+	
+	start_shell();
 	
 	// call_int();
 

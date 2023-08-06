@@ -3,6 +3,8 @@
         "isrs.h": "c",
         "*.ld": "cpp",
         "idt.h": "c",
-        "irq.h": "c"
+        "irq.h": "c",
+        "util.h": "c",
+        "stdarg.h": "c"
     }
 }
