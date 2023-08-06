@@ -65,12 +65,20 @@ void keyboard_set_led(enum SET_KEYBOARD_LEDS led) {
 //      the IRQ handler
 void print_key(const struct registers *r) {
     unsigned char scancode = port_byte_in(KEYBOARD_PORT);
-    if (scancode == RESPONSE_KEYBOARD_ACK) {
+    if (scancode == RESPONSE_KEYBOARD_ACK ||
+        scancode == RESPONSE_ECHO) {
+
+    } else if (scancode == RESPONSE_KEY_ERROR_1 ||
+                scancode == RESPONSE_KEY_ERROR_2 ||
+                scancode == RESPONSE_SELF_TEST_FAILED_1 ||
+                scancode == RESPONSE_SELF_TEST_FAILED_2) {
+        
+        print("Keyboard Error!");
 
     } else if (scancode == RESPONSE_KEYBOARD_RESEND) {
         print("Keyboard interrupted with a RESEND response");
 
-        // Scancode starting at 0x80 and higher can indicate key releases
+    // Scancode starting at 0x80 and higher can indicate key releases
     } else if (scancode & 0x80) {
         
         // Retrieve the key that is released using XOR and our lookup table
