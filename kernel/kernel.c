@@ -18,6 +18,8 @@ void main() {
 	// Then install IDT
 	idt_install();
 
+	set_default_console_attribute(generate_attribute_byte(BLUE, WHITE));
+
 	clear();
 
 	// Next, initialize keyboard to use scancode set 2 (usually is the default)

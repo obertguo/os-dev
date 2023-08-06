@@ -14,15 +14,12 @@
 const unsigned char scancode_set_1_US[128];
 
 // Store inputs
-unsigned char input_buffer[INPUT_BUFFER_SIZE] = {0};
-unsigned char input_buffer_cpy[INPUT_BUFFER_SIZE] = {0};
-unsigned char input_buffer_idx = 0;
+unsigned char char_pressed = 0;
 
 // Flags for special keyboard keys for when they are pressed
 unsigned char LEFT_SHIFT_DOWN = 0;
 unsigned char RIGHT_SHIFT_DOWN = 0;
-unsigned char CAPS_LOCK_ON = 1;
-unsigned char ENTER_PRESSED = 0;
+unsigned char CAPS_LOCK_ON = 0;
 
 // keyboard_set_scancode(scancode) sets the keyboard controller to use
 //      the scancode set scancode.
@@ -153,56 +150,37 @@ void print_key(const struct registers *r) {
                     }
                 }
             }
-            input_buffer[input_buffer_idx] = c;
-            ++input_buffer_idx;
-
-            print_char(c, RED_ON_WHITE);
+            
+            char_pressed = c;
         
-        // Backspace
-        } else if (c == '\b') {
-            input_buffer[input_buffer_idx] = '\0';
-
-            if (input_buffer_idx > 0) {
-                --input_buffer_idx;
-                print_char(c, WHITE_ON_BLACK);
-            }
-
+        // Backspace or Enter keys
+        } else if (c == '\b' || c == '\n') {
+            char_pressed = c;
+        
+        // Set flags for special keys
         } else if (c == LEFT_SHIFT) {
             LEFT_SHIFT_DOWN = 1;
         } else if (c == RIGHT_SHIFT){
             RIGHT_SHIFT_DOWN = 1;
         } else if (c == CAPS_LOCK) {
             CAPS_LOCK_ON = !CAPS_LOCK_ON;
-        } else if (c == '\n') {
-            ENTER_PRESSED = 1;
+
+        // Non-printable keys or other special keys not implemented
         } else {
             print("Not printable");
         }
-        keyboard_set_led(CAPS_LOCK);
     }
 }
 
-// get_line() returns a pointer to a string containing whatever was inputted
-//      into the console since the last enter key press 
-//      Otherwise, if the enter was not pressed, it returns a null pointer
-unsigned char *get_line() {
-    if (ENTER_PRESSED) {
+// get_char() returns a char containing the character inputted
+//      since the last interrupt 
+//      Otherwise, if no recent interrrupts occured, it returns 0
+unsigned char get_char() {
+    if (char_pressed) {
+        char c = char_pressed;
+        char_pressed = 0;
 
-        // Reset enter key press flag
-        ENTER_PRESSED = 0;
-        
-        // Copy input buffer
-        memory_copy(input_buffer_cpy, input_buffer, INPUT_BUFFER_SIZE);
-
-        // Reset input buffer and index
-        for (unsigned char i = 0; i < INPUT_BUFFER_SIZE; ++i) {
-            input_buffer[i] = 0;
-        }
-
-        input_buffer_idx = 0;
-        
-        // Return copied string
-        return input_buffer_cpy;
+        return c;
     } else {
         return 0;
     }

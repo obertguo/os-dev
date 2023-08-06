@@ -5,14 +5,37 @@
 #define MAX_ROWS 25
 #define MAX_COLS 80
 
-// Attribute byte
-#define WHITE_ON_BLACK 0x0f
-#define GREEN_ON_BLACK 0xa0
-#define RED_ON_WHITE 0x4f
+// colors
+#define BLACK 0x0
+#define BLUE 0x1
+#define GREEN 0x2
+#define CYAN 0x3
+#define RED 0x4
+#define MAGENTA 0x5
+#define BROWN 0x6
+#define LIGHT_GRAY 0x7
+#define DARK_GRAY 0x8
+#define LIGHT_BLUE 0x9
+#define LIGHT_GREEN 0xa
+#define LIGHT_CYAN 0xb
+#define LIGHT_RED 0xc
+#define LIGHT_MAGENTA 0xd
+#define YELLOW 0xe
+#define WHITE 0xf
 
 // Screen device I/O ports
-#define REG_SCREEN_CTRL 0x3d4   // This 
+#define REG_SCREEN_CTRL 0x3d4  
 #define REG_SCREEN_DATA 0x3d5
+
+
+// set_default_console_attribute(attribute_byte) sets the
+//      attribute byte for the console
+void set_default_console_attribute(unsigned char attribute_byte);
+
+
+// generate_attribute_byte(fg, bg) returns an attribute byte to write to
+//      the video memory with given forground color fg and background color bg
+unsigned char generate_attribute_byte(unsigned char fg, unsigned char bg);
 
 
 // get_screen_offset(row, col) maps the row and col coordinates and
@@ -34,13 +57,20 @@ void print_line(unsigned int count, unsigned char attrribute_byte);
 //      start of the next line
 void print_newline();
 
-// print_char(c, attribute_byte) prints a character c at the current 
+// print_char_attribs(c, attribute_byte) prints a character c at the current 
 //      cursor position, and then advances the cursor position to the
 //      next character cell. The styling is handed by attribute_byte 
+//      The character can be ASCII printable, a newline (\n), or a 
+//      backspace (\b)
 // Requires: 
 //      c is a printable character
 //      attribute_byte is either 0, 1 or 2, or a byte for the VGA style to apply
-void print_char(unsigned char c, unsigned char attribute_byte);
+void print_char_attrib(unsigned char c, unsigned char attribute_byte);
+
+// print_char(c) prints the character c at the current cursor position
+//      c can be an ASCII printable character, a newline (\n) or a 
+//      backspace (\b)
+void print_char(unsigned char c);
 
 // print_at(message, row, col) prints the given null terminated string 
 //      str at the given row and col location

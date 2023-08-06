@@ -3,6 +3,19 @@
 #include "../kernel/util.h"
 #include <stdarg.h>
 
+unsigned char DEFAULT_CONSOLE_ATTRIBUTE = 0;
+
+// set_default_console_attribute(attribute_byte) sets the
+//      attribute byte for the console
+void set_default_console_attribute(unsigned char attribute_byte) {
+    DEFAULT_CONSOLE_ATTRIBUTE = attribute_byte;
+}
+
+unsigned char generate_attribute_byte(unsigned char fg, unsigned char bg) {
+    unsigned char attribute_byte = (bg << 4) | (fg & 0x0f);
+    return attribute_byte;
+}
+
 // get_screen_offset(row, col) maps the row and col coordinates and
 //      returns the memory offset for that character cell relative
 //      to the start of the video memory
@@ -59,7 +72,7 @@ void set_cursor(unsigned int offset) {
 // Requires: count >= 0 and attribute_byte is a valid styling
 void print_line(unsigned int count, unsigned char attribute_byte) {
 	for (unsigned int i = 0; i < count; ++i) {
-		print_char(' ', attribute_byte);
+		print_char_attrib(' ', attribute_byte);
 	}
 }
 
@@ -93,8 +106,9 @@ void handle_scrolling() {
     unsigned char *video_mem = (unsigned char *) VIDEO_ADDRESS + 
                                 get_screen_offset(MAX_ROWS - 1, 0);
 
-    for (int i = 0; i < 2 * MAX_COLS; ++i) {
+    for (int i = 0; i < MAX_COLS; i += 2) {
         *(video_mem + i) = 0;
+        *(video_mem + i + 1) = DEFAULT_CONSOLE_ATTRIBUTE;
     }
 
     // set cursor to the start of the last line
@@ -128,13 +142,15 @@ void print_newline() {
     }
 }
 
-// print_char(c, attribute_byte) prints a character c at the current 
+// print_char_attribs(c, attribute_byte) prints a character c at the current 
 //      cursor position, and then advances the cursor position to the
 //      next character cell. The styling is handed by attribute_byte 
+//      The character can be ASCII printable, a newline (\n), or a 
+//      backspace (\b)
 // Requires: 
 //      c is a printable character
 //      attribute_byte is the VGA style to apply
-void print_char(unsigned char c, unsigned char attribute_byte) {
+void print_char_attrib(unsigned char c, unsigned char attribute_byte) {
 
      // Get video memory offset for cursor location
     unsigned int offset = get_cursor();
@@ -151,7 +167,7 @@ void print_char(unsigned char c, unsigned char attribute_byte) {
 
         // Reset current cell
         video_mem[offset] = 0;
-        video_mem[offset + 1] = 0;
+        video_mem[offset + 1] = DEFAULT_CONSOLE_ATTRIBUTE;
 
         // Move the cursor back as long as it is past the start of video memory
         if (offset > 0) {
@@ -176,6 +192,13 @@ void print_char(unsigned char c, unsigned char attribute_byte) {
     }
 }
 
+// print_char(c) prints the character c at the current cursor position
+//      c can be an ASCII printable character, a newline (\n) or a 
+//      backspace (\b)
+void print_char(unsigned char c) {
+    print_char_attrib(c, DEFAULT_CONSOLE_ATTRIBUTE);
+}
+
 
 // print(str) prints the null terminated string str at the current 
 //      cursor location.
@@ -185,7 +208,7 @@ void print(const char str[]) {
     unsigned int i = 0;
 
     while (str[i] != '\0') {
-        print_char(str[i], GREEN_ON_BLACK);
+        print_char(str[i]);
         ++i;
     }
 }
@@ -202,7 +225,7 @@ void print_at(const char str[], unsigned int row, unsigned int col) {
 
     unsigned int i = 0;
     while (str[i] != '\0') {
-        print_char(str[i], RED_ON_WHITE);
+        print_char(str[i]);
         ++i;
     }
 }
@@ -217,7 +240,7 @@ void clear() {
     // Overwrite VGA buffer with spaces
     // The cursor automatically advances to the next character cell
     for (unsigned int row = 0; row < MAX_ROWS; ++row) {
-        print_line(MAX_COLS, WHITE_ON_BLACK);
+        print_line(MAX_COLS, DEFAULT_CONSOLE_ATTRIBUTE);
     }
 
     // Restore cursor position to the start of the VGA buffer (top-left)
@@ -231,33 +254,33 @@ void printf(char *format, ...) {
     va_list arg = 0;
     va_start(arg, format);
 
-    unsigned char *current = 0;
+    char *current = 0;
     
     for (current = format; *current != '\0'; ++current) {
         if (*current != '\%') {
-            print_char(*current, WHITE_ON_BLACK);
+            print_char(*current);
         } else {
             ++current;
-            unsigned char specifier = *current;
+            char specifier = *current;
             
             switch (specifier) {
                 case 's':
-                    unsigned char *str = va_arg(arg, char *);
+                    const char *str = va_arg(arg, char *);
                     print(str);
                     break;
                     
                 case 'd':
-                    int orig_num = va_arg(arg, char *);
+                    int orig_num = va_arg(arg, int);
                     int num = orig_num;
                     int multiplier = 1;
                     
                     if (num == 0) {
-                        print_char('0', WHITE_ON_BLACK);
+                        print_char('0');
                         break;
                     }
 
                     if (num < 0) {
-                        print_char('-', WHITE_ON_BLACK);
+                        print_char('-');
 
                         // pray this won't cause overflow issues...
                         orig_num *= -1;  
@@ -271,7 +294,7 @@ void printf(char *format, ...) {
 
                     while (multiplier > 1) {
                         multiplier /= 10;
-                        print_char(orig_num / multiplier + '0',WHITE_ON_BLACK);
+                        print_char(orig_num / multiplier + '0');
                         orig_num %= multiplier;
                     }
 
@@ -279,7 +302,7 @@ void printf(char *format, ...) {
                 
                 case 'c':
                     char c = va_arg(arg, int);
-                    print_char(c, WHITE_ON_BLACK);
+                    print_char(c);
                     break;
 
                 default:

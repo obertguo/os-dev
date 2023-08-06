@@ -1,8 +1,6 @@
 #ifndef KEYBOARD_H
 #define KEYBOARD_H
 
-#define INPUT_BUFFER_SIZE 128
-
 #define KEYBOARD_PORT 0x60
 
 #define RESPONSE_KEYBOARD_ACK 0xfa
@@ -42,10 +40,10 @@ unsigned char keyboard_get_scancode();
 // keyboard_set_led(led) sets the LED state on the keyboard
 void keyboard_set_led(enum SET_KEYBOARD_LEDS led);
 
-// get_line() returns a pointer to a string containing whatever was inputted
-//      into the console since the last enter key press 
-//      Otherwise, if the enter was not pressed, it returns a null pointer
-unsigned char *get_line();
+// get_char() returns a char containing the character inputted
+//      since the last interrupt 
+//      Otherwise, if no recent interrrupts occured, it returns 0
+unsigned char get_char();
 
 #define LEFT_SHIFT 240
 #define RIGHT_SHIFT 241
