@@ -5,7 +5,7 @@
 [bits 16]
 [org 0x7c00]                ; Set offset for where the boot program 
                             ; is loaded into memory
-KERNEL_OFFSET equ 0x1000   ; Memory offset for which the kernel 
+KERNEL_OFFSET equ 0x1000    ; Memory offset for which the kernel
                             ; will be loaded from
 
     xor ax, ax              ; Reset DS register
@@ -53,7 +53,33 @@ begin_pm:
     mov ebx, MSG_PM_MODE
     call print_string_pm
 
-    call KERNEL_OFFSET  ; jump to address where the kernel is located
+    mov ecx, 0
+    mov eax, PAGE_TABLE
+
+    PDT_FILL:
+        mov ebx, 0x0
+        or ebx, 0x83
+        mov [eax], ebx
+
+        inc ecx
+        add eax, 4
+
+        cmp ecx, 4096
+        jne PDT_FILL
+
+    mov eax, PAGE_TABLE
+    mov cr3, eax
+
+    mov eax, cr4
+    or eax, 0x00000010
+    mov cr4, eax
+
+    mov eax, cr0
+    or eax, 0x80000001
+    mov cr0, eax
+
+    lea eax, [KERNEL_OFFSET]
+    call eax  ; jump to address where the kernel is located
                         ; and hope for the best!!
     
     jmp $               ; Hang
@@ -72,3 +98,14 @@ BOOT_DRIVE:
 ; Padding and magic number
 times 510 - ($ - $$) db 0
 dw 0xaa55
+
+[bits 32]
+section .bss
+align 4096
+PAGE_TABLE:
+    resb 4096
+;
+; section .data
+; align 4096
+; PAGE_TABLE
+;     times 1024 dd 0x83

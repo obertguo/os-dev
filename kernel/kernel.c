@@ -24,6 +24,9 @@ void main() {
 	print_mario();
 	sleep(200);
 	clear();
+	print("4MB paging has been enabled!\n");
+	sleep(500);
+	clear();
 	
 	start_shell();
 	
