@@ -1,0 +1,1244 @@
+
+boot.bin:     file format binary
+
+
+Disassembly of section .data:
+
+00000000 <.data>:
+       0:	31 c0                	xor    ax,ax
+       2:	8e d8                	mov    ds,ax
+       4:	88 16 cb 7d          	mov    BYTE PTR ds:0x7dcb,dl
+       8:	bd 00 90             	mov    bp,0x9000
+       b:	89 ec                	mov    sp,bp
+       d:	e8 25 01             	call   0x135
+      10:	bb 74 7d             	mov    bx,0x7d74
+      13:	e8 45 00             	call   0x5b
+      16:	e8 ed 00             	call   0x106
+      19:	60                   	pusha  
+      1a:	80 3f 00             	cmp    BYTE PTR [bx],0x0
+      1d:	74 3a                	je     0x59
+      1f:	8b 17                	mov    dx,WORD PTR [bx]
+      21:	c0 ea 04             	shr    dl,0x4
+      24:	80 fa 0a             	cmp    dl,0xa
+      27:	7c 08                	jl     0x31
+      29:	80 c2 61             	add    dl,0x61
+      2c:	80 ea 0a             	sub    dl,0xa
+      2f:	eb 03                	jmp    0x34
+      31:	80 c2 30             	add    dl,0x30
+      34:	e8 36 00             	call   0x6d
+      37:	8b 17                	mov    dx,WORD PTR [bx]
+      39:	80 e2 0f             	and    dl,0xf
+      3c:	80 fa 0a             	cmp    dl,0xa
+      3f:	7c 08                	jl     0x49
+      41:	80 c2 61             	add    dl,0x61
+      44:	80 ea 0a             	sub    dl,0xa
+      47:	eb 03                	jmp    0x4c
+      49:	80 c2 30             	add    dl,0x30
+      4c:	e8 1e 00             	call   0x6d
+      4f:	b2 20                	mov    dl,0x20
+      51:	e8 19 00             	call   0x6d
+      54:	83 c3 01             	add    bx,0x1
+      57:	eb c1                	jmp    0x1a
+      59:	61                   	popa   
+      5a:	c3                   	ret    
+      5b:	60                   	pusha  
+      5c:	b4 0e                	mov    ah,0xe
+      5e:	8a 07                	mov    al,BYTE PTR [bx]
+      60:	3c 00                	cmp    al,0x0
+      62:	74 07                	je     0x6b
+      64:	83 c3 01             	add    bx,0x1
+      67:	cd 10                	int    0x10
+      69:	eb f1                	jmp    0x5c
+      6b:	61                   	popa   
+      6c:	c3                   	ret    
+      6d:	60                   	pusha  
+      6e:	b4 0e                	mov    ah,0xe
+      70:	88 d0                	mov    al,dl
+      72:	cd 10                	int    0x10
+      74:	61                   	popa   
+      75:	c3                   	ret    
+      76:	60                   	pusha  
+      77:	ba 00 80             	mov    dx,0x8000
+      7a:	0b 00                	or     ax,WORD PTR [bx+si]
+      7c:	8a 03                	mov    al,BYTE PTR [bp+di]
+      7e:	b4 9f                	mov    ah,0x9f
+      80:	3c 00                	cmp    al,0x0
+      82:	74 0b                	je     0x8f
+      84:	66 89 02             	mov    DWORD PTR [bp+si],eax
+      87:	83 c3 01             	add    bx,0x1
+      8a:	83 c2 02             	add    dx,0x2
+      8d:	eb ed                	jmp    0x7c
+      8f:	61                   	popa   
+      90:	c3                   	ret    
+      91:	60                   	pusha  
+      92:	66 52                	push   edx
+      94:	b4 02                	mov    ah,0x2
+      96:	88 f0                	mov    al,dh
+      98:	b5 00                	mov    ch,0x0
+      9a:	b6 00                	mov    dh,0x0
+      9c:	b1 02                	mov    cl,0x2
+      9e:	cd 13                	int    0x13
+      a0:	72 08                	jb     0xaa
+      a2:	66 5a                	pop    edx
+      a4:	38 f0                	cmp    al,dh
+      a6:	75 0d                	jne    0xb5
+      a8:	61                   	popa   
+      a9:	c3                   	ret    
+      aa:	66 bb c0 7c e8 a8    	mov    ebx,0xa8e87cc0
+      b0:	ff                   	(bad)  
+      b1:	ff                   	(bad)  
+      b2:	ff                   	(bad)  
+      b3:	eb fe                	jmp    0xb3
+      b5:	66 bb d2 7c e8 9d    	mov    ebx,0x9de87cd2
+      bb:	ff                   	(bad)  
+      bc:	ff                   	(bad)  
+      bd:	ff                   	(bad)  
+      be:	eb fe                	jmp    0xbe
+      c0:	44                   	inc    sp
+      c1:	69 73 6b 20 72       	imul   si,WORD PTR [bp+di+0x6b],0x7220
+      c6:	65 61                	gs popa 
+      c8:	64 20 66 61          	and    BYTE PTR fs:[bp+0x61],ah
+      cc:	69 6c 65 64 21       	imul   bp,WORD PTR [si+0x65],0x2164
+      d1:	00 44 69             	add    BYTE PTR [si+0x69],al
+      d4:	73 6b                	jae    0x141
+      d6:	20 72 65             	and    BYTE PTR [bp+si+0x65],dh
+      d9:	61                   	popa   
+      da:	64 20 69 6e          	and    BYTE PTR fs:[bx+di+0x6e],ch
+      de:	63 6f 6d             	arpl   WORD PTR [bx+0x6d],bp
+      e1:	70 6c                	jo     0x14f
+      e3:	65 74 65             	gs je  0x14b
+      e6:	21 00                	and    WORD PTR [bx+si],ax
+	...
+      f0:	ff                   	(bad)  
+      f1:	ff 00                	inc    WORD PTR [bx+si]
+      f3:	00 00                	add    BYTE PTR [bx+si],al
+      f5:	9a cf 00 ff ff       	call   0xffff:0xcf
+      fa:	00 00                	add    BYTE PTR [bx+si],al
+      fc:	00 92 cf 00          	add    BYTE PTR [bp+si+0xcf],dl
+     100:	17                   	pop    ss
+     101:	00 e8                	add    al,ch
+     103:	7c 00                	jl     0x105
+     105:	00 fa                	add    dl,bh
+     107:	0f 01 16 00 7d       	lgdtw  ds:0x7d00
+     10c:	0f 20 c0             	mov    eax,cr0
+     10f:	66 83 c8 01          	or     eax,0x1
+     113:	0f 22 c0             	mov    cr0,eax
+     116:	ea 1b 7d 08 00       	jmp    0x8:0x7d1b
+     11b:	66 b8 10 00 8e d8    	mov    eax,0xd88e0010
+     121:	8e d0                	mov    ss,ax
+     123:	8e c0                	mov    es,ax
+     125:	8e e0                	mov    fs,ax
+     127:	8e e8                	mov    gs,ax
+     129:	bd 00 90             	mov    bp,0x9000
+     12c:	00 00                	add    BYTE PTR [bx+si],al
+     12e:	89 ec                	mov    sp,bp
+     130:	e8 18 00             	call   0x14b
+     133:	00 00                	add    BYTE PTR [bx+si],al
+     135:	bb b7 7d             	mov    bx,0x7db7
+     138:	e8 20 ff             	call   0x5b
+     13b:	bb 00 00             	mov    bx,0x0
+     13e:	8e c3                	mov    es,bx
+     140:	bb 00 10             	mov    bx,0x1000
+     143:	8a 16 cb 7d          	mov    dl,BYTE PTR ds:0x7dcb
+     147:	b6 13                	mov    dh,0x13
+     149:	e8 45 ff             	call   0x91
+     14c:	c3                   	ret    
+     14d:	bb 96 7d             	mov    bx,0x7d96
+     150:	00 00                	add    BYTE PTR [bx+si],al
+     152:	e8 1f ff             	call   0x74
+     155:	ff                   	(bad)  
+     156:	ff                   	(bad)  
+     157:	b8 00 80             	mov    ax,0x8000
+     15a:	00 00                	add    BYTE PTR [bx+si],al
+     15c:	0f 22 d8             	mov    cr3,eax
+     15f:	0f 20 c0             	mov    eax,cr0
+     162:	0d 00 00             	or     ax,0x0
+     165:	00 80 0f 22          	add    BYTE PTR [bx+si+0x220f],al
+     169:	c0 8d 05 00 10       	ror    BYTE PTR [di+0x5],0x10
+     16e:	00 00                	add    BYTE PTR [bx+si],al
+     170:	ff e0                	jmp    ax
+     172:	eb fe                	jmp    0x172
+     174:	45                   	inc    bp
+     175:	6e                   	outs   dx,BYTE PTR ds:[si]
+     176:	74 65                	je     0x1dd
+     178:	72 69                	jb     0x1e3
+     17a:	6e                   	outs   dx,BYTE PTR ds:[si]
+     17b:	67 20 33             	and    BYTE PTR [ebx],dh
+     17e:	32 20                	xor    ah,BYTE PTR [bx+si]
+     180:	62 69 74             	bound  bp,DWORD PTR [bx+di+0x74]
+     183:	20 70 72             	and    BYTE PTR [bx+si+0x72],dh
+     186:	6f                   	outs   dx,WORD PTR ds:[si]
+     187:	74 65                	je     0x1ee
+     189:	63 74 65             	arpl   WORD PTR [si+0x65],si
+     18c:	64 20 6d 6f          	and    BYTE PTR fs:[di+0x6f],ch
+     190:	64 65 2e 2e 2e 00 52 	fs gs cs cs add BYTE PTR cs:[bp+si+0x55],dl
+     197:	55 
+     198:	4e                   	dec    si
+     199:	4e                   	dec    si
+     19a:	49                   	dec    cx
+     19b:	4e                   	dec    si
+     19c:	47                   	inc    di
+     19d:	20 49 4e             	and    BYTE PTR [bx+di+0x4e],cl
+     1a0:	20 33                	and    BYTE PTR [bp+di],dh
+     1a2:	32 20                	xor    ah,BYTE PTR [bx+si]
+     1a4:	42                   	inc    dx
+     1a5:	49                   	dec    cx
+     1a6:	54                   	push   sp
+     1a7:	20 50 52             	and    BYTE PTR [bx+si+0x52],dl
+     1aa:	4f                   	dec    di
+     1ab:	54                   	push   sp
+     1ac:	45                   	inc    bp
+     1ad:	43                   	inc    bx
+     1ae:	54                   	push   sp
+     1af:	45                   	inc    bp
+     1b0:	44                   	inc    sp
+     1b1:	20 4d 4f             	and    BYTE PTR [di+0x4f],cl
+     1b4:	44                   	inc    sp
+     1b5:	45                   	inc    bp
+     1b6:	00 4c 6f             	add    BYTE PTR [si+0x6f],cl
+     1b9:	61                   	popa   
+     1ba:	64 69 6e 67 20 43    	imul   bp,WORD PTR fs:[bp+0x67],0x4320
+     1c0:	20 4b 65             	and    BYTE PTR [bp+di+0x65],cl
+     1c3:	72 6e                	jb     0x233
+     1c5:	65 6c                	gs ins BYTE PTR es:[di],dx
+     1c7:	2e 2e 2e 00 00       	cs cs add BYTE PTR cs:[bx+si],al
+     1cc:	60                   	pusha  
+     1cd:	b8 00 80             	mov    ax,0x8000
+     1d0:	00 00                	add    BYTE PTR [bx+si],al
+     1d2:	0f 22 d8             	mov    cr3,eax
+     1d5:	61                   	popa   
+     1d6:	c3                   	ret    
+     1d7:	60                   	pusha  
+     1d8:	0f 20 c0             	mov    eax,cr0
+     1db:	0d 00 00             	or     ax,0x0
+     1de:	00 80 0f 22          	add    BYTE PTR [bx+si+0x220f],al
+     1e2:	c0 61 c3 00          	shl    BYTE PTR [bx+di-0x3d],0x0
+	...
+     1fe:	55                   	push   bp
+     1ff:	aa                   	stos   BYTE PTR es:[di],al
+	...
+     400:	83 00 00             	add    WORD PTR [bx+si],0x0
+     403:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     407:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     40b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     40f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     413:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     417:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     41b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     41f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     423:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     427:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     42b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     42f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     433:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     437:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     43b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     43f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     443:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     447:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     44b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     44f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     453:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     457:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     45b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     45f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     463:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     467:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     46b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     46f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     473:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     477:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     47b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     47f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     483:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     487:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     48b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     48f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     493:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     497:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     49b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     49f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     4ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     503:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     507:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     50b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     50f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     513:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     517:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     51b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     51f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     523:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     527:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     52b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     52f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     533:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     537:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     53b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     53f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     543:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     547:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     54b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     54f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     553:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     557:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     55b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     55f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     563:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     567:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     56b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     56f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     573:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     577:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     57b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     57f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     583:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     587:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     58b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     58f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     593:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     597:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     59b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     59f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     5ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     603:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     607:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     60b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     60f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     613:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     617:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     61b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     61f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     623:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     627:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     62b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     62f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     633:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     637:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     63b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     63f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     643:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     647:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     64b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     64f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     653:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     657:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     65b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     65f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     663:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     667:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     66b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     66f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     673:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     677:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     67b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     67f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     683:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     687:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     68b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     68f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     693:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     697:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     69b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     69f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     6ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     703:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     707:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     70b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     70f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     713:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     717:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     71b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     71f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     723:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     727:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     72b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     72f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     733:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     737:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     73b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     73f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     743:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     747:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     74b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     74f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     753:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     757:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     75b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     75f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     763:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     767:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     76b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     76f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     773:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     777:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     77b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     77f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     783:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     787:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     78b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     78f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     793:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     797:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     79b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     79f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     7ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     803:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     807:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     80b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     80f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     813:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     817:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     81b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     81f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     823:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     827:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     82b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     82f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     833:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     837:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     83b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     83f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     843:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     847:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     84b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     84f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     853:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     857:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     85b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     85f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     863:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     867:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     86b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     86f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     873:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     877:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     87b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     87f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     883:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     887:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     88b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     88f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     893:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     897:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     89b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     89f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     8ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     903:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     907:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     90b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     90f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     913:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     917:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     91b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     91f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     923:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     927:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     92b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     92f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     933:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     937:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     93b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     93f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     943:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     947:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     94b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     94f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     953:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     957:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     95b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     95f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     963:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     967:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     96b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     96f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     973:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     977:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     97b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     97f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     983:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     987:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     98b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     98f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     993:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     997:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     99b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     99f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     9ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a03:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a07:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a0b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a0f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a13:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a17:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a1b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a1f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a23:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a27:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a2b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a2f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a33:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a37:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a3b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a3f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a43:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a47:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a4b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a4f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a53:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a57:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a5b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a5f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a63:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a67:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a6b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a6f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a73:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a77:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a7b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a7f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a83:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a87:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a8b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a8f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a93:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a97:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a9b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     a9f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     aa3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     aa7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     aab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     aaf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ab3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ab7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     abb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     abf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ac3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ac7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     acb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     acf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ad3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ad7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     adb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     adf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ae3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ae7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     aeb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     aef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     af3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     af7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     afb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     aff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b03:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b07:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b0b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b0f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b13:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b17:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b1b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b1f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b23:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b27:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b2b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b2f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b33:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b37:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b3b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b3f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b43:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b47:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b4b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b4f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b53:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b57:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b5b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b5f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b63:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b67:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b6b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b6f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b73:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b77:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b7b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b7f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b83:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b87:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b8b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b8f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b93:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b97:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b9b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     b9f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ba3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ba7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     baf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bb3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bb7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bbb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bbf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bc3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bc7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bcb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bcf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bd3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bd7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bdb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bdf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     be3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     be7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     beb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bf3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bf7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bfb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     bff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c03:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c07:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c0b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c0f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c13:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c17:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c1b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c1f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c23:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c27:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c2b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c2f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c33:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c37:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c3b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c3f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c43:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c47:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c4b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c4f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c53:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c57:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c5b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c5f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c63:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c67:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c6b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c6f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c73:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c77:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c7b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c7f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c83:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c87:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c8b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c8f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c93:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c97:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c9b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     c9f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ca3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ca7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     caf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cb3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cb7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cbb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cbf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cc3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cc7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ccb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ccf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cd3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cd7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cdb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cdf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ce3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ce7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ceb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cf3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cf7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cfb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     cff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d03:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d07:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d0b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d0f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d13:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d17:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d1b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d1f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d23:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d27:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d2b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d2f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d33:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d37:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d3b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d3f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d43:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d47:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d4b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d4f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d53:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d57:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d5b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d5f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d63:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d67:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d6b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d6f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d73:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d77:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d7b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d7f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d83:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d87:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d8b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d8f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d93:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d97:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d9b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     d9f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     da3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     da7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     daf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     db3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     db7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dbb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dbf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dc3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dc7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dcb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dcf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dd3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dd7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ddb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ddf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     de3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     de7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     deb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     def:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     df3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     df7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dfb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     dff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e03:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e07:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e0b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e0f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e13:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e17:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e1b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e1f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e23:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e27:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e2b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e2f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e33:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e37:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e3b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e3f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e43:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e47:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e4b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e4f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e53:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e57:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e5b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e5f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e63:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e67:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e6b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e6f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e73:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e77:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e7b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e7f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e83:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e87:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e8b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e8f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e93:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e97:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e9b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     e9f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ea3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ea7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     eab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     eaf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     eb3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     eb7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ebb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ebf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ec3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ec7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ecb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ecf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ed3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ed7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     edb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     edf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ee3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ee7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     eeb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     eef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ef3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ef7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     efb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     eff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f03:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f07:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f0b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f0f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f13:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f17:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f1b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f1f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f23:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f27:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f2b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f2f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f33:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f37:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f3b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f3f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f43:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f47:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f4b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f4f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f53:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f57:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f5b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f5f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f63:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f67:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f6b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f6f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f73:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f77:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f7b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f7f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f83:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f87:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f8b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f8f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f93:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f97:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f9b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     f9f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fa3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fa7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     faf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fb3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fb7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fbb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fbf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fc3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fc7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fcb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fcf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fd3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fd7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fdb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fdf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fe3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fe7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     feb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ff3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ff7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     ffb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+     fff:	00 83 00 00          	add    BYTE PTR [bp+di+0x0],al
+    1003:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1007:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    100b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    100f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1013:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1017:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    101b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    101f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1023:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1027:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    102b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    102f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1033:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1037:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    103b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    103f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1043:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1047:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    104b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    104f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1053:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1057:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    105b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    105f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1063:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1067:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    106b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    106f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1073:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1077:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    107b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    107f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1083:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1087:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    108b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    108f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1093:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1097:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    109b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    109f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    10ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1103:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1107:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    110b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    110f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1113:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1117:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    111b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    111f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1123:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1127:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    112b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    112f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1133:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1137:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    113b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    113f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1143:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1147:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    114b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    114f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1153:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1157:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    115b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    115f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1163:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1167:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    116b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    116f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1173:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1177:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    117b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    117f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1183:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1187:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    118b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    118f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1193:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1197:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    119b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    119f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    11ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1203:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1207:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    120b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    120f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1213:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1217:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    121b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    121f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1223:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1227:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    122b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    122f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1233:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1237:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    123b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    123f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1243:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1247:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    124b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    124f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1253:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1257:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    125b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    125f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1263:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1267:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    126b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    126f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1273:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1277:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    127b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    127f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1283:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1287:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    128b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    128f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1293:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1297:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    129b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    129f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    12ff:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1303:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1307:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    130b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    130f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1313:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1317:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    131b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    131f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1323:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1327:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    132b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    132f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1333:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1337:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    133b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    133f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1343:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1347:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    134b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    134f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1353:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1357:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    135b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    135f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1363:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1367:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    136b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    136f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1373:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1377:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    137b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    137f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1383:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1387:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    138b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    138f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1393:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    1397:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    139b:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    139f:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13a3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13a7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13ab:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13af:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13b3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13b7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13bb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13bf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13c3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13c7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13cb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13cf:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13d3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13d7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13db:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13df:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13e3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13e7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13eb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13ef:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13f3:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13f7:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+    13fb:	00 82 00 00          	add    BYTE PTR [bp+si+0x0],al
+	...
