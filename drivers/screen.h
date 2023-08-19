@@ -2,7 +2,9 @@
 #define SCREEN_H
 
 #define VIDEO_ADDRESS 0xC00B8000    // physical address is 0xb8000, but we are 
-                                    // now using virtual memory
+                                    // now using virtual memory where 
+                                    // 0xC0008000 virtual maps to 
+                                    // 0x00000000 physical
 #define MAX_ROWS 25
 #define MAX_COLS 80
 

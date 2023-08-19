@@ -24,6 +24,9 @@ all: os-image
 run: os-image
 	qemu-system-x86_64 -drive format=raw,file=os-image
 
+debug: os-image
+	qemu-system-x86_64 -drive format=raw,file=os-image -d int -no-reboot -no-shutdown
+
 clean:
 	rm -rf *.bin *.o os-image
 	rm -rf ${C_OBJ_FILES}
